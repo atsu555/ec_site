@@ -7,10 +7,18 @@
 </head>
 <body>
   <h1>BIKESHOP 管理ページ</h1>
+
   <div>
-    <a href="login.php" target="_blank">ユーザ管理ページ</a>
+    <a href="itemlist.php" target="_blank">ユーザ管理ページ</a>
+  </div>
+  <div>
+    <a href="logout.php" target="_blank">ログアウト</a>
   </div>
   <section>
+
+<?php foreach($errs as $value){ ?>
+        <p><?php print $value; ?></p>
+<?php } ?>
     <h2>商品の登録</h2>
     <form method="post" enctype="multipart/form-data">
       <div><label>商品名: <input type="text" name="new_name" value=""></label></div>

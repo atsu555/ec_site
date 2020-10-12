@@ -12,13 +12,12 @@ $img_dir       = './img/';
 $item_id       = '';
 
 session_start();
+$user_id   = check_login_user_id();
+$user_name = check_login_user_name();
+
 try {
     // db接続
     $dbh = get_db_connect();
-    // ユーザーネームの表示
-    $user_name = $_SESSION['user_name'];
-// var_dump($user_name);
-    $user_id   = $_SESSION['user_id'];
     // postを確認する
     if (get_request_method() === 'POST') {
       $sql_kind   = get_post_data('sql_kind');
@@ -29,7 +28,7 @@ try {
          $get_item_data  = get_item_data($dbh,$item_id);
          // チェックする
          check_item_id($item_id);
-var_dump($err);
+
          // エラーが０の時に
          if (count($err) === 0) {
             //  idの有無
@@ -39,7 +38,6 @@ var_dump($err);
               $update_cart = update_ec_cart($dbh,$user_id,$item_id,$date);
              } else {
               $insert_cart  = insert_ec_cart($dbh,$user_id,$item_id,$date);
-var_dump($err);
              }
 
          }
@@ -48,17 +46,8 @@ var_dump($err);
 
 
         }
-      
-      
-  
-    
-    
-    
     }
-    // user_idとitem_idを使ってcart_dataの取得をする
-    // 見つかれば数量をamount+1(if)
-    // 見つからなければinsertをする(else)
-    // echo 'データベースに接続しました';
+
     $item_data = item_data($dbh);
     // var_dump($item_data);
 } catch (Exception $e) {

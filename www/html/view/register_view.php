@@ -8,10 +8,9 @@
 <body>
   <header>
     <div class="header-box">
-      <a href="21-top.php">
-        <img class="logo" src="./lib/logo.png" alt="CodeSHOP">
+      <a href="itemlist.php">
+        バイクショップ
       </a>
-      <a href="22-cart.php" class="cart"></a>
     </div>
   </header>
   <div class="content">

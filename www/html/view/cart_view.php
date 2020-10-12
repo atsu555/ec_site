@@ -6,16 +6,9 @@
   <link type="text/css" rel="stylesheet" href="./css/common.css">
 </head>
 <body>
-  <header>
-    <div class="header-box">
-      <a href="21-top.php">
-        <img class="logo" src="./lib/logo.png" alt="CodeCamp SHOP">
-      </a>
-      <a class="nemu" href="login.php">ログアウト</a>
-      <a href="22-cart.php" class="cart"></a>
-      <p class="nemu">ユーザー名：<?php print $user_name; ?></p>
-    </div>
-  </header>
+
+<?php include 'templates/header_view.php'; ?>
+
 <?php if (count($cart_data) > 0) { ?>
   <div class="content">
     <h1 class="title">ショッピングカート</h1>
@@ -55,8 +48,6 @@
       <!-- ここまで入力 -->
     </div>
     <div>
-      <!-- ★C-4 商品を購入する（「購入完了ページページ」に遷移する）。-->
-      <!-- action に　/23-finish.php"　を追加しましょう -->
       <form action="finish.php" method="post">
         <input class="buy-btn" type="submit" value="購入する">
         <input type="hidden" name="sql_kind" value="buy_cart">

@@ -31,7 +31,7 @@ function get_post_data_int($key) {
         $str = is_int($str);
     }
     return $str;
-} 
+}
 
 
 // リクエストメソッド
@@ -39,20 +39,17 @@ function get_request_method() {
     return $_SERVER['REQUEST_METHOD'];
 }
 
-// 
+//
 function entity_str($str) {
- 
   return htmlspecialchars($str, ENT_QUOTES, HTML_CHARACTER_SET);
 }
-
-
 
 // データ取り出し
 function item_data($dbh) {
   global $err;
   try {
     // データベース取得
-    $sql = 'SELECT 
+    $sql = 'SELECT
             *
             FROM ec_item_master
             INNER JOIN ec_item_stock
@@ -88,22 +85,6 @@ function user_data($dbh) {
   }
 }
 
-
-function get_item_data($dbh,$item_id) {
-    try {
-      $sql = 'SELECT price,name,img,item_id FROM ec_item_master WHERE item_id = '.$item_id;
-      // SQL文を実行する準備
-      $stmt = $dbh->prepare($sql);
-      // SQLを実行
-      $stmt->execute();
-      // レコードの取得
-      $rows = $stmt->fetchAll();
-      return $rows;
-    } catch (Exception $e) {
-      $err[] = $e->getMessage();
-    }
-}
-
 // 合計金額
 function sum_data($dbh,$user_id) {
   try {
@@ -115,7 +96,7 @@ function sum_data($dbh,$user_id) {
               ec_item_master
             ON
               ec_cart.item_id = ec_item_master.item_id
-            WHERE  
+            WHERE
               user_id = ?';
     // SQL文を実行する準備
     $stmt = $dbh->prepare($sql);
@@ -124,9 +105,61 @@ function sum_data($dbh,$user_id) {
     $stmt->execute();
     // レコードの取得
     $rows = $stmt->fetchAll();
-    return $rows;  
+    return $rows;
   } catch (Exception $e) {
     $err[] = $e->getMessage();
   }
 
+}
+
+function execute_query($dbh, $sql, $params = array()){
+  try{
+    $statement = $dbh->prepare($sql);
+    return $statement->execute($params);
+  }catch(PDOException $e){
+    $err[] =  $e->getMessage();
+  }
+  return false;
+}
+
+function fetch_all_query($dbh, $sql, $params = array()){
+  try{
+    $statement = $dbh->prepare($sql);
+    $statement->execute($params);
+    return $statement->fetchAll();
+  }catch(PDOException $e){
+    $err[] = 'データ取得に失敗しました。';
+  }
+  return false;
+}
+
+// ログインチェック
+function check_login_user_id() {
+  if (isset($_SESSION['user_id']) === true){
+      return $_SESSION['user_id'];
+  } else {
+      header('Location: login.php');
+      exit;
+  }
+}
+
+function check_login_user_name() {
+  if (isset($_SESSION['user_name']) === true){
+      return $_SESSION['user_name'];
+  } else {
+      header('Location: logout.php');
+      exit;
+  }
+}
+
+function check_admin() {
+  if (isset($_SESSION['user_id']) === true){
+      if($_SESSION['user_id'] !== 'admin') {
+          header('Location: login.php');
+          exit;
+      }
+  } else {
+      header('Location: login.php');
+      exit;
+  }
 }

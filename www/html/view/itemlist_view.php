@@ -6,16 +6,9 @@
   <link type="text/css" rel="stylesheet" href="./css/common.css">
 </head>
 <body>
-  <header>
-    <div class="header-box">
-      <a href="itemlist.php">
-        <img class="logo" src="./logo/design-vector.jpg" alt="BIKESHOP">
-      </a>
-      <a class="nemu" href="login.php">ログアウト</a>
-      <a href="cart.php" class="cart">cart</a>
-      <p class="nemu">ユーザー名：<?php print $user_name; ?></p>
-    </div>
-  </header>
+
+<?php include 'templates/header_view.php'; ?>
+
 <?php if (count($item_data) > 0) { ?>
   <div class="content">
     <ul class="item-list">
@@ -75,12 +68,10 @@
       </li>
 <?php } ?>
     </ul>
-    <a href="search.php">検索はこちらから</a>
   </div>
 <?php } else { ?>
 　<div class="content">
       <h1>商品はありません</h1>
-      <a href="search.php">検索はこちらから</a>
   </div>
 <?php } ?>
 

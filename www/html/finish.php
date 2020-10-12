@@ -15,20 +15,39 @@ $date          = date('Y-m-d H:i:s');
 
 $regex         = '/[0-9]/';
 session_start();
+$user_id   = check_login_user_id();
+$user_name = check_login_user_name();
+
 try {
     // db接続
     $dbh = get_db_connect();
-    echo 'データベースに接続しました';
-    // ユーザーネームの表示
-    $user_id    = $_SESSION['user_id'];
-    $user_name  = $_SESSION['user_name'];
-    
+
     $cart_data = get_ec_cart_table($dbh,$user_id);
-    
-    // ￥合計金額
     $sum = sum_data($dbh,$user_id);
-    
-    
+    var_dump($cart_data);
+
+
+
+    if (get_request_method()=== 'POST') {
+
+      // ポスト値の取得
+      $sql_kind   = get_post_data('sql_kind');
+
+      if ($sql_kind === 'buy_cart') {
+
+              $amount = $cart_data[0]['amount'];
+
+              $item_id  = $cart_data[0]['item_id'];
+              decrease_stock($dbh,$item_id,$amount,$date);
+              delete_ec_cart($dbh,$item_id,$user_id);
+
+      }
+
+    }
+
+    // 購入履歴を作りデータを取得し、finish.phpにデータを反映させる
+
+
 } catch (Exception $e) {
   $err[] = $e->getMessage();
 }

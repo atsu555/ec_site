@@ -41,11 +41,6 @@ try {
         }
     }
 
-
-   var_dump($err);
-
-
-
 } catch (Exception $e) {
   $err[] = $e->getMessage();
 }
