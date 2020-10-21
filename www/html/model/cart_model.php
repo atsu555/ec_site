@@ -36,7 +36,7 @@ function  update_amount($dbh,$item_id,$user_id,$amount,$date){
           UPDATE
             ec_cart
           SET
-            amount = ?
+            amount = ?,
             update_datetime = ?
           WHERE
             item_id = ?

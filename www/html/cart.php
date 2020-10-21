@@ -33,7 +33,7 @@ try {
       if ($sql_kind === 'delete_cart') {
         // postの取得
         $item_id = get_post_data('item_id');
-var_dump($item_id);
+
         check_item_id($item_id);
         if (count($err) === 0 ) {
           delete_ec_cart($dbh,$item_id,$user_id);
@@ -42,22 +42,21 @@ var_dump($item_id);
         // ポスト値の取得
         $amount = get_post_data('select_amount');
 
-        $item_id     = get_post_data('item_id');
-var_dump($item_id);
-      }
+        $item_id = get_post_data('item_id');
+
         // 入力値チェック
         check_amount($amount);
         check_item_id($item_id);
-        
+
 
         if (count($err) === 0) {
-
           update_amount($dbh,$item_id,$user_id,$amount,$date);
 
         }
+      }
     }
 
-// 表示
+    // 表示
     // セレクト文は最後
     $cart_data = get_ec_cart_table($dbh,$user_id);
     $sum = sum_data($dbh,$user_id);

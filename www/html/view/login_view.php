@@ -8,7 +8,7 @@
 <body>
   <header>
     <div class="header-box">
-      <a href="itemlist.php">
+      <a class="title" href="itemlist.php">
         バイクショップ
       </a>
     </div>

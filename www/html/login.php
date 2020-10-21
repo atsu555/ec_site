@@ -58,15 +58,10 @@ try {
         }
       }
 
-      // var_dump($_SESSION['user_id']);
-
-      // なければエラーを用意する
-    var_dump($select_user);
-
 
     }
 
-print_r($err);
+
 
 } catch (Exception $e) {
   $err[] = $e->getMessage();

@@ -24,9 +24,6 @@ try {
 
     $cart_data = get_ec_cart_table($dbh,$user_id);
     $sum = sum_data($dbh,$user_id);
-    var_dump($cart_data);
-
-
 
     if (get_request_method()=== 'POST') {
 
